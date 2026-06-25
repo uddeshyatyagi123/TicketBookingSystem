@@ -18,8 +18,9 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
 
         String path = request.getRequestURI();
-        // Skip auth check for auth endpoints and public APIs
-        if (path.startsWith("/api/auth/") || 
+        // Skip auth check for auth endpoints, error dispatching, and public APIs
+        if (path.equals("/error") ||
+            path.startsWith("/api/auth/") || 
             (path.equals("/api/events") && "GET".equalsIgnoreCase(request.getMethod())) ||
             (path.startsWith("/api/events/") && path.endsWith("/seats") && "GET".equalsIgnoreCase(request.getMethod())) ||
             (path.startsWith("/api/events/") && "GET".equalsIgnoreCase(request.getMethod()))) {
